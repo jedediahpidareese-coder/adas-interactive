@@ -1,6 +1,7 @@
 ﻿# Dependencies and tooling
 node_modules/
 .wrangler/
+.pages-deploy*/
 
 # Logs
 npm-debug.log*
