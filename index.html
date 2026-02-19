@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AD-AS Shock Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="app">
+    <header class="hero fade-up">
+      <p class="tag">Macro Classroom Lab</p>
+      <h1>AD-AS Shock Studio</h1>
+      <p class="subtitle">Move the economy through demand and supply shocks, then see inflation and growth update instantly.</p>
+      <a class="cases-link" href="cases.html">Open Real-World Case Library</a>
+    </header>
+
+    <section class="card graph-card fade-up" aria-label="AD-AS graph and equilibrium outcomes">
+      <div class="graph-topbar">
+        <h2>Interactive Diagram</h2>
+        <div class="view-tools">
+          <label class="switch-inline" for="autoZoomToggle">
+            <input id="autoZoomToggle" type="checkbox">
+            <span>Zoom to case</span>
+          </label>
+          <button id="resetViewBtn" class="ghost" type="button">Reset View</button>
+        </div>
+      </div>
+      <div class="graph-wrap">
+        <canvas id="adasCanvas" width="900" height="560" aria-label="AD-AS graph"></canvas>
+      </div>
+      <div class="outcomes" aria-live="polite">
+        <article>
+          <p>Real Growth Rate</p>
+          <strong id="outputValue">2.0%</strong>
+        </article>
+        <article>
+          <p>Inflation Rate</p>
+          <strong id="priceValue">2.0%</strong>
+        </article>
+        <article>
+          <p>Growth Gap vs Potential</p>
+          <strong id="gapValue">0.0 pp</strong>
+        </article>
+      </div>
+      <p id="scenarioText" class="scenario-text">Baseline economy at long-run equilibrium.</p>
+    </section>
+
+    <section class="card controls-card fade-up" aria-label="Model controls and explanations">
+      <h2>Model Controls</h2>
+
+      <div class="control-row">
+        <label for="adShift">AD shift, Δs (pp)</label>
+        <input id="adShift" type="range" min="-20" max="20" value="0" step="0.25">
+        <div class="mini-scale"><span>Left</span><span id="adShiftValue">0</span><span>Right</span></div>
+      </div>
+
+      <div class="control-row">
+        <label for="srasShift">SRAS shift, ΔSRAS (pp)</label>
+        <input id="srasShift" type="range" min="-20" max="20" value="0" step="0.25">
+        <div class="mini-scale"><span>Down</span><span id="srasShiftValue">0</span><span>Up</span></div>
+      </div>
+
+      <div class="control-row">
+        <label for="lrasShift">LRAS shift, ΔLRAS (pp)</label>
+        <input id="lrasShift" type="range" min="-6" max="6" value="0" step="0.25">
+        <div class="mini-scale"><span>Left</span><span id="lrasShiftValue">0</span><span>Right</span></div>
+      </div>
+
+      <div class="control-row">
+        <label for="kappaSlope">SRAS slope, κ</label>
+        <input id="kappaSlope" type="range" min="0.5" max="2.0" value="1.0" step="0.1">
+        <div class="mini-scale"><span>Flatter</span><span id="kappaValue">1.0</span><span>Steeper</span></div>
+      </div>
+
+      <div class="button-row controls-actions">
+        <button id="runLongRunBtn" type="button" class="pill">Run Long-Run Adjustment</button>
+        <button id="resetBtn" type="button" class="ghost">Reset Shocks</button>
+      </div>
+      <p id="adjustmentText" class="challenge-text">Click a curve (or E) to open the explanation panel.</p>
+
+      <div class="macro-inputs" aria-label="Model anchor inputs">
+        <h3>Anchor and Identity</h3>
+        <p id="baselineDateText">Anchor-year baseline</p>
+        <ul>
+          <li>Anchor inflation π0: <strong id="anchorPiValue">2.00%</strong></li>
+          <li>Anchor growth g0: <strong id="anchorGrowthValue">2.00%</strong></li>
+          <li>Anchor spending s0 = π0 + g0: <strong id="anchorSpendingValue">4.00%</strong></li>
+          <li>Shock inflation π1: <strong id="shockPiValue">-</strong></li>
+          <li>Shock growth g1: <strong id="shockGrowthValue">-</strong></li>
+          <li>Shock spending s1 = π1 + g1: <strong id="shockSpendingValue">-</strong></li>
+          <li>Current spending s = s0 + ΔAD: <strong id="adGrowthValue">4.00%</strong></li>
+          <li>Current potential growth g*: <strong id="potentialGrowthValue">2.00%</strong></li>
+          <li>Current SRAS intercept (πᵉ + ΔSRAS): <strong id="expInflValue">2.00%</strong></li>
+          <li>ΔAD: <strong id="deltaAdPanelValue">+0.00 pp</strong></li>
+          <li>ΔSRAS: <strong id="deltaSrasPanelValue">+0.00 pp</strong></li>
+          <li>ΔLRAS: <strong id="deltaLrasPanelValue">+0.00 pp</strong></li>
+          <li>κ: <strong id="kappaPanelValue">1.00</strong></li>
+        </ul>
+      </div>
+
+      <section id="explanationPanel" class="explanation-panel" aria-label="Curve explanation" hidden>
+        <div class="explanation-head">
+          <h3 id="explanationTitle">Explanation</h3>
+          <div class="explain-toggle">
+            <button id="showMathBtn" type="button" class="ghost is-active">Show Math</button>
+            <button id="showStoryBtn" type="button" class="ghost">Show Story</button>
+          </div>
+        </div>
+        <p id="explanationEquation" class="explanation-equation"></p>
+        <div id="explanationBody" class="explanation-body"></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

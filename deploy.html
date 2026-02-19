@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploy AD-AS Shock Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="cases-page">
+  <div class="backdrop"></div>
+  <main class="app">
+    <header class="hero fade-up">
+      <p class="tag">Macro Classroom Lab</p>
+      <h1>Deployment Guide</h1>
+      <p class="subtitle">Use a public HTTPS host so your QR code works for anyone, anywhere.</p>
+      <a class="cases-link" href="index.html">Back To Simulator</a>
+    </header>
+
+    <section class="card fade-up">
+      <h2>GitHub Pages (Persistent)</h2>
+      <ol>
+        <li>Create a new GitHub repo and upload `index.html`, `style.css`, `app.js`, `cases.html`, `cases.js`, `case-library.js`, and `deploy.html`.</li>
+        <li>In GitHub, open `Settings` -> `Pages` -> set source to `Deploy from a branch` and choose `main` / root.</li>
+        <li>Wait for build, then copy your URL like `https://yourname.github.io/repo-name/`.</li>
+        <li>Paste that URL into the QR panel `Class URL` field and regenerate QR.</li>
+      </ol>
+    </section>
+
+    <section class="card fade-up">
+      <h2>Cloudflare Pages / Netlify / Vercel (Persistent)</h2>
+      <ol>
+        <li>Create a site from this folder (static site, no build command required).</li>
+        <li>Use the generated HTTPS URL for QR.</li>
+      </ol>
+      <p class="subtitle">Temporary tunnels can be useful for demos, but for semester-long access use persistent hosting.</p>
+    </section>
+  </main>
+</body>
+</html>

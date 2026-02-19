@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AD-AS Case Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="cases-page">
+  <div class="backdrop"></div>
+  <main class="app">
+    <header class="hero fade-up">
+      <p class="tag">Macro Classroom Lab</p>
+      <h1>Real-World AD-AS Case Library</h1>
+      <p class="subtitle">Historical events mapped into AD-AS shifts with a Cowen/Tabarrok-style focus on nominal spending, supply shocks, expectations, and adjustment.</p>
+      <a class="cases-link" href="index.html">Back To Simulator</a>
+    </header>
+
+    <section class="card fade-up" aria-label="Historical AD-AS case cards">
+      <h2>Historical Cases</h2>
+      <p class="subtitle">Choose a case and load it into the simulator. Each case uses observed FRED inflation/growth plus an era-specific baseline so curve shifts follow the economic intuition of that episode.</p>
+      <div id="caseGrid" class="case-grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="cases.js"></script>
+</body>
+</html>
